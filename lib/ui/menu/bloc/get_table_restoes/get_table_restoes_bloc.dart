@@ -6,17 +6,18 @@ import 'package:meta/meta.dart';
 part 'get_table_restoes_event.dart';
 part 'get_table_restoes_state.dart';
 
-class GetTableRestoesBloc extends Bloc<GetTableRestoesEvent, GetTableRestoesState> {
+class GetTableRestoesBloc
+    extends Bloc<GetTableRestoesEvent, GetTableRestoesState> {
   final tableRestoRepository = TableRestoRepository();
   GetTableRestoesBloc() : super(GetTableRestoesInitial()) {
     on<GetTableRestoesEvent>((event, emit) async {
-
-      emit(getTableRestoesLoading());
+      emit(GetTableRestoesLoading());
       try {
         var response = await tableRestoRepository.getTableRestos();
-        emit(getTableRestoesLoaded(list: response));
+        // await Future.delayed();
+        emit(GetTableRestoesLoaded(list: response));
       } catch (e) {
-        emit(getTableRestoesError(e.toString()));
+        emit(GetTableRestoesError(e.toString()));
       }
     });
   }

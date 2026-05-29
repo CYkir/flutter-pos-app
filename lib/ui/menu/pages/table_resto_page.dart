@@ -38,6 +38,72 @@ class _TableRestoPageState extends State<TableRestoPage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Table Resto"),
       ),
+      body: BlocBuilder<GetTableRestoesBloc, GetTableRestoesState>(
+        builder: (context, state) {
+          return switch(state) {
+            // TODO: Handle this case.
+            GetTableRestoesInitial() || GetTableRestoesLoading() => Center(
+              child: CircularProgressIndicator(),
+            ),
+            // TODO: Handle this case.
+            GetTableRestoesLoaded() => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+          ),
+          itemBuilder: (_, index) {
+            return GestureDetector(
+              onTap: (){
+                debugPrint('Tap ${state.list[index].name}');
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.grey),
+                  color: state.list[index].tableStatus == 'Terisi'
+                      ? Theme.of(context).colorScheme.inversePrimary
+                      : Colors.grey.shade100,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '${state.list[index].name}',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      spacing: 5,
+                      children: [
+                        Icon(Icons.people),
+                        Text('${state.list[index].capacity}'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+          itemCount: state.list.length,
+        ),
+      ),
+            // TODO: Handle this case.
+            GetTableRestoesError() => Center(
+              child: Text(state.message),
+            ),
+
+            GetTableRestoesLoaded() => Center(
+              child: Text("Data Masih Kosong ...."),
+            ),
+          };
+        },
+      ),
     );
   }
 }

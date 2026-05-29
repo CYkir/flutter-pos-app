@@ -5,16 +5,16 @@ sealed class GetTableRestoesState {}
 
 final class GetTableRestoesInitial extends GetTableRestoesState {}
 
-final class getTableRestoesLoading extends GetTableRestoesState {}
+final class GetTableRestoesLoading extends GetTableRestoesState {}
 
-final class getTableRestoesLoaded extends GetTableRestoesState {
+final class GetTableRestoesLoaded extends GetTableRestoesState {
   final List<TableRestoModel> list;
 
-  getTableRestoesLoaded({required this.list});
+  GetTableRestoesLoaded({required this.list});
 }
 
-final class getTableRestoesError extends GetTableRestoesState {
+final class GetTableRestoesError extends GetTableRestoesState {
   final String message;
 
-  getTableRestoesError(this.message);
+  GetTableRestoesError(this.message);
 }
