@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pos_app/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
-import 'package:flutter_pos_app/ui/menu/pages/table_resto_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pos_app/ui/home/home_page.dart';
+// import 'package:flutter_pos_app/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
+// import 'package:flutter_pos_app/ui/menu/pages/table_resto_page.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -14,10 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: BlocProvider(
-        create: (context) => GetTableRestoesBloc(),
-        child: TableRestoPage(),
-      ),
+      // home: BlocProvider(
+      //   create: (context) => GetTableRestoesBloc(),
+      //   child: TableRestoPage(),
+      // ),
+    home: HomePage(),
     );
   }
 }

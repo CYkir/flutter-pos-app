@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_pos_app/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+class TableResto extends StatelessWidget {
+  const TableResto({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => GetTableRestoesBloc(),
+      child: TableRestoPage(),
+    );
+  }
+}
 
 class TableRestoPage extends StatefulWidget {
   const TableRestoPage({super.key});
@@ -16,9 +27,8 @@ class _TableRestoPageState extends State<TableRestoPage> {
   @override
   void initState() {
     super.initState();
-    getTableRestoesBloc = context.read<GetTableRestoesBloc>()..add(
-      TableRestoesFetched()
-    );
+    getTableRestoesBloc = context.read<GetTableRestoesBloc>()
+      ..add(TableRestoesFetched());
   }
 
   @override

@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   bloc: ^9.2.1
   dio: ^5.9.2
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:
