@@ -46,7 +46,9 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
               child: CircularProgressIndicator(),
             ),
 
-            GetMenuRestoLoaded() => ListView.separated(
+            GetMenuRestoLoaded() =>  state.list.isEmpty
+                  ? const Center(child: Text("Data menu kosong"))
+                  : ListView.separated(
               padding: const EdgeInsets.all(12),
               itemCount: state.list.length,
               separatorBuilder: (_, __) => const SizedBox(height: 12),
@@ -191,7 +193,6 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
 
             GetMenuRestoError() => Center(child: Text(state.message)),
 
-            GetMenuRestoLoaded() => Center(child: Text("Data menu kosong")),
           };
         },
       ),

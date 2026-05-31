@@ -47,68 +47,71 @@ class _TableRestoPageState extends State<TableRestoPage> {
               child: CircularProgressIndicator(),
             ),
 
-            GetTableRestoesLoaded() => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 4,
-                  crossAxisSpacing: 4,
-                ),
-                itemBuilder: (_, index) {
-                  TableRestoModel tableRestoModel = state.list[index];
-                  return GestureDetector(
-                    onTap: () {
-                      debugPrint('Tap ${state.list[index].name}');
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TableRestoInfoPage(
-                            tableRestoModel: tableRestoModel,
-                          ),
+            GetTableRestoesLoaded() =>
+              state.list.isEmpty
+                  ? const Center(child: Text("Data Masih Kosong ...."))
+                  : Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 4,
+                          crossAxisSpacing: 4,
                         ),
-                      );
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey),
-                        color: state.list[index].tableStatus == 'Terisi'
-                            ? Theme.of(context).colorScheme.inversePrimary
-                            : Colors.grey.shade100,
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '${state.list[index].name}',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            spacing: 5,
-                            children: [
-                              Icon(Icons.people),
-                              Text('${state.list[index].capacity}'),
-                            ],
-                          ),
-                        ],
+                        itemBuilder: (_, index) {
+                          TableRestoModel tableRestoModel = state.list[index];
+                          return GestureDetector(
+                            onTap: () {
+                              debugPrint('Tap ${state.list[index].name}');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => TableRestoInfoPage(
+                                    tableRestoModel: tableRestoModel,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: Colors.grey),
+                                color: state.list[index].tableStatus == 'Terisi'
+                                    ? Theme.of(
+                                        context,
+                                      ).colorScheme.inversePrimary
+                                    : Colors.grey.shade100,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    '${state.list[index].name}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.titleMedium,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    spacing: 5,
+                                    children: [
+                                      Icon(Icons.people),
+                                      Text('${state.list[index].capacity}'),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        itemCount: state.list.length,
                       ),
                     ),
-                  );
-                },
-                itemCount: state.list.length,
-              ),
-            ),
             // TODO: Handle this case.
             GetTableRestoesError() => Center(child: Text(state.message)),
-
-            GetTableRestoesLoaded() => Center(
-              child: Text("Data Masih Kosong ...."),
-            ),
           };
         },
       ),
