@@ -7,8 +7,7 @@ import 'package:flutter_pos_app/data/models/table_resto_model.dart';
 class TableRestoInfoPage extends StatelessWidget {
   final TableRestoModel tableRestoModel;
 
-  const TableRestoInfoPage({Key? key, required this.tableRestoModel})
-    : super(key: key);
+  const TableRestoInfoPage({super.key, required this.tableRestoModel});
 
   @override
   Widget build(BuildContext context) {
