@@ -10,7 +10,7 @@ class MenuResto extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GetMenuRestoesBloc(),
-      child: MenuRestoPage(),
+      child:  MenuRestoPage(),
     );
   }
 }
@@ -34,6 +34,11 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text("Menu Resto"),
+      ),
+    );
   }
 }

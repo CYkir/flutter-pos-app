@@ -16,7 +16,7 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   List<Widget> list = [
     DashboardPage(),
-    MenuRestoPage(),
+    MenuResto(),
     // TableRestoPage(),
     TableResto(),
     ProfilePages(),
