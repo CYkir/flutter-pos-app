@@ -30,9 +30,9 @@ class MenuRestoModel {
       name: json['name'],
       price: json['price'],
       description: json['description'],
-      imageMenu: json['imageMenu'],
+      imageMenu: json['image_menu'],
       category: json['category'],
-      menuStatus: json['menuStatus'],
+      menuStatus: json['menu_status'],
       status: json['status'],
     );
   }
