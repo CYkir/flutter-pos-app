@@ -4,7 +4,7 @@ import 'package:flutter_pos_app/core/api_client.dart';
 import 'package:flutter_pos_app/data/models/table_resto_model.dart';
 
 class TableRestoRepository extends ApiClient {
-  Future<List<TableRestoModel>> getTableRestos() async {
+  Future <List<TableRestoModel>> getTableRestos() async {
     try {
       var response = await dio.get('table-resto');
       debugPrint('Get all table Resto : ${response.data}');
