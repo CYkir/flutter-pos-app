@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MenuRestoPage extends StatefulWidget {
@@ -10,6 +11,6 @@ class MenuRestoPage extends StatefulWidget {
 class _MenuRestoPageState extends State<MenuRestoPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold();
   }
 }
