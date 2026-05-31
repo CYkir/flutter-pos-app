@@ -12,7 +12,6 @@ class GetMenuRestoesBloc
 
   GetMenuRestoesBloc() : super(GetMenuRestoesInitial()) {
     on<GetMenuRestoesEvent>((event, emit) async {
-      // TODO: implement event handler
       emit(GetMenuRestoLoading());
       try {
         var response = await menuRestoRepository.getMenuRestoes();

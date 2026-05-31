@@ -7,7 +7,8 @@ class MenuRestoRepository extends ApiClient {
   Future<List<MenuRestoModel>> getMenuRestoes() async {
     try {
       var response = await dio.get('menu-resto-list');
-      debugPrint('GET ALL MENU : ${response.data}');
+      // debugPrint('GET ALL MENU : ${response.data}');
+      debugPrint('Tipe Data dari API: ${response.data.runtimeType}');
 
       List list = response.data;
       List<MenuRestoModel> listMenuResto = list
