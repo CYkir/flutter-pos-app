@@ -46,59 +46,71 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
               child: CircularProgressIndicator(),
             ),
 
-            GetMenuRestoLoaded() => Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                itemCount: state.list.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                  childAspectRatio: 0.75,
-                ),
-                itemBuilder: (_, index) {
-                  final menu = state.list[index];
-                  final imageUrl =
-                      menu.imageMenu?.replaceAll('127.0.0.1', '10.0.2.2') ?? '';
+            GetMenuRestoLoaded() => ListView.separated(
+              padding: const EdgeInsets.all(12),
+              itemCount: state.list.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (_, index) {
+                final menu = state.list[index];
+                final imageUrl =
+                    menu.imageMenu?.replaceAll('127.0.0.1', '10.0.2.2') ?? '';
 
-                  debugPrint('IMAGE URL: $imageUrl');
-                  return Container(
+                return InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () {
+                    debugPrint('Tap menu: ${menu.name}');
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.grey.shade300),
                       color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.06),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
                     ),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// IMAGE
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(
-                              top: Radius.circular(20),
-                            ),
-                            child: Image.network(
-                              imageUrl,
-                              width: double.infinity,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) {
-                                return const Center(
-                                  child: Icon(Icons.image_not_supported),
-                                );
-                              },
-                            ),
-                          ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(14),
+                          child: imageUrl.isEmpty
+                              ? Container(
+                                  width: 95,
+                                  height: 95,
+                                  color: Colors.grey.shade200,
+                                  child: const Icon(Icons.image_not_supported),
+                                )
+                              : Image.network(
+                                  imageUrl,
+                                  width: 95,
+                                  height: 95,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (_, __, ___) {
+                                    return Container(
+                                      width: 95,
+                                      height: 95,
+                                      color: Colors.grey.shade200,
+                                      child: const Icon(
+                                        Icons.image_not_supported,
+                                      ),
+                                    );
+                                  },
+                                ),
                         ),
 
-                        /// CONTENT
-                        Padding(
-                          padding: const EdgeInsets.all(10),
+                        const SizedBox(width: 12),
+
+                        Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              /// NAME
                               Text(
-                                '${state.list[index].name}',
+                                menu.name ?? '-',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context).textTheme.titleMedium
@@ -107,44 +119,61 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
 
                               const SizedBox(height: 4),
 
-                              /// CATEGORY
                               Text(
-                              '${state.list[index].name}',
-                                style: TextStyle(color: Colors.grey.shade600),
+                                menu.category ?? '-',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 13,
+                                ),
                               ),
 
                               const SizedBox(height: 8),
 
-                              /// PRICE + STATUS
+                              Text(
+                                menu.description ?? '-',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey.shade500,
+                                  fontSize: 12,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Rp ${menu.price}',
+                                    'Rp ${menu.price ?? '0'}',
                                     style: const TextStyle(
                                       fontWeight: FontWeight.bold,
+                                      fontSize: 15,
                                     ),
                                   ),
 
                                   Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 4,
+                                      horizontal: 10,
+                                      vertical: 5,
                                     ),
                                     decoration: BoxDecoration(
                                       color: menu.menuStatus == 'Ada'
                                           ? Colors.green.shade100
                                           : Colors.red.shade100,
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
-                                      '${state.list[index].name}',
+                                      menu.menuStatus ?? '-',
                                       style: TextStyle(
                                         fontSize: 12,
+                                        fontWeight: FontWeight.w600,
                                         color: menu.menuStatus == 'Ada'
-                                            ? Colors.green
-                                            : Colors.red,
+                                            ? Colors.green.shade700
+                                            : Colors.red.shade700,
                                       ),
                                     ),
                                   ),
@@ -155,14 +184,14 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
                         ),
                       ],
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
 
             GetMenuRestoError() => Center(child: Text(state.message)),
 
-            _ => const Center(child: Text("Data menu kosong")),
+            GetMenuRestoLoaded() => Center(child: Text("Data menu kosong")),
           };
         },
       ),
