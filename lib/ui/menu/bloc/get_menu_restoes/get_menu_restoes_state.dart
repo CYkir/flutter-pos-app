@@ -16,5 +16,5 @@ final class GetMenuRestoLoaded extends GetMenuRestoesState {
 final class GetMenuRestoError extends GetMenuRestoesState {
   final String message;
 
-  GetMenuRestoError({required this.message});
+  GetMenuRestoError(this.message);
 }
