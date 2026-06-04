@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos_app/ui/menu/bloc/get_menu_restoes/get_menu_restoes_bloc.dart';
+import 'package:flutter_pos_app/ui/menu/pages/menu_resto_info_page.dart';
 
 class MenuResto extends StatelessWidget {
   const MenuResto({super.key});
@@ -51,7 +52,7 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
                   : ListView.separated(
               padding: const EdgeInsets.all(12),
               itemCount: state.list.length,
-              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              separatorBuilder: (_, _) => const SizedBox(height: 12),
               itemBuilder: (_, index) {
                 final menu = state.list[index];
                 final imageUrl =
@@ -61,6 +62,12 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
                   borderRadius: BorderRadius.circular(16),
                   onTap: () {
                     debugPrint('Tap menu: ${menu.name}');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => MenuRestoInfoPage(),
+                      ),
+                    );
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -92,7 +99,7 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
                                   width: 95,
                                   height: 95,
                                   fit: BoxFit.cover,
-                                  errorBuilder: (_, __, ___) {
+                                  errorBuilder: (_, _, _) {
                                     return Container(
                                       width: 95,
                                       height: 95,
