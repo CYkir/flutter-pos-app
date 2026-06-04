@@ -65,7 +65,7 @@ class _MenuRestoPageState extends State<MenuRestoPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => MenuRestoInfoPage(),
+                        builder: (_) => MenuRestoInfoPage(menu: menu),
                       ),
                     );
                   },
