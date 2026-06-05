@@ -54,7 +54,7 @@ class _MenuRestoInfoPageState extends State<MenuRestoInfoPage> {
             width: double.infinity,
             height: 280,
             fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) {
+            errorBuilder: (_, _, _) {
               return Container(
                 height: 280,
                 color: Colors.grey.shade200,

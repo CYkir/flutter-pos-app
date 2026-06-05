@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_pos_app/ui/menu/bloc/get_menu_restoes/get_menu_restoes_bloc.dart';
 import 'package:flutter_pos_app/ui/menu/pages/menu_resto_info_page.dart';
