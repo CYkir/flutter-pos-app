@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pos_app/data/models/table_resto_model.dart';
+import 'package:flutter_pos_app/ui/menu/bloc/create_table_resto/create_table_resto_bloc.dart';
 import 'package:flutter_pos_app/ui/menu/bloc/get_table_restoes/get_table_restoes_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pos_app/ui/menu/pages/table_resto_form.dart';
 import 'package:flutter_pos_app/ui/menu/pages/table_resto_info_page.dart';
 
 class TableResto extends StatelessWidget {
@@ -39,6 +41,20 @@ class _TableRestoPageState extends State<TableRestoPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text("Table Resto"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => BlocProvider(
+                create: (context) => CreateTableRestoBloc(),
+                child: TableRestoForm(),
+              ),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
       ),
       body: BlocBuilder<GetTableRestoesBloc, GetTableRestoesState>(
         builder: (context, state) {
