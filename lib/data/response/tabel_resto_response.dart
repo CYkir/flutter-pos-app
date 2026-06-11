@@ -4,7 +4,7 @@ class TabelRestoResponse {
   final String? name;
   final int? capacity;
   final String? tableStatus;
-  final String? Status;
+  final String? status;
 
   TabelRestoResponse({
     required this.id,
@@ -12,6 +12,17 @@ class TabelRestoResponse {
     required this.name,
     required this.capacity,
     required this.tableStatus,
-    required this.Status,
+    required this.status,
   });
+
+  factory TabelRestoResponse.fromJson(Map<String, dynamic> json) {
+    return TabelRestoResponse(
+      id: json['id'],
+      code: json['code'],
+      name: json['name'],
+      capacity: json['capacity'],
+      tableStatus: json['table_status'],
+      status: json['status'],
+    );
+  }
 }
