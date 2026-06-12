@@ -6,5 +6,11 @@ sealed class CreateTableRestoEvent {}
 final class TableRestoCreated extends CreateTableRestoEvent {
   final TableRestoParam tableRestoParam;
   TableRestoCreated({required this.tableRestoParam});
+}
 
+final class TableRestoUpdated extends CreateTableRestoEvent {
+  final int id;
+  final TableRestoParam tableRestoParam;
+
+  TableRestoUpdated({required this.id, required this.tableRestoParam});
 }

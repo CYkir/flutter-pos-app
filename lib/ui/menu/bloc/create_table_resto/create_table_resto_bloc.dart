@@ -20,10 +20,28 @@ class CreateTableRestoBloc
         event.tableRestoParam.status,
       );
       try {
-        TableRestoNewResponse response = await tableRestoRepository.addTableResto(
-          tableRestoParam,
-        );
+        TableRestoNewResponse response = await tableRestoRepository
+            .addTableResto(tableRestoParam);
         emit(CreateTableRestoSuccess(tableRestoNewResponse: response));
+      } catch (e) {
+        emit(CreateTableRestoError(message: e.toString()));
+      }
+    });
+
+    on<TableRestoUpdated>((event, emit) async {
+      final tableRestoParam = TableRestoParam(
+        event.tableRestoParam.code,
+        event.tableRestoParam.name,
+        event.tableRestoParam.capacity,
+        event.tableRestoParam.tableStatus,
+        event.tableRestoParam.status,
+      );
+      final idTableResto = event.id;
+      emit(CreateTableRestoLoading());
+      try {
+        TableRestoNewResponse responseUpdate = await tableRestoRepository
+            .updateTableResto(idTableResto, tableRestoParam);
+        emit(CreateTableRestoSuccess(tableRestoNewResponse: responseUpdate));
       } catch (e) {
         emit(CreateTableRestoError(message: e.toString()));
       }

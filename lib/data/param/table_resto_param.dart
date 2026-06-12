@@ -21,6 +21,7 @@ class TableRestoParam {
 // Update
   Map<String, dynamic> toJsonUpdate() {
     return {
+      'code' : code,
       'name': name,
       'capacity': capacity,
       'table_status': tableStatus,

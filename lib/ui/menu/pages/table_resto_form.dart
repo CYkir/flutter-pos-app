@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_pos_app/data/models/table_resto_model.dart';
 import 'package:flutter_pos_app/data/param/table_resto_param.dart';
 import 'package:flutter_pos_app/ui/menu/bloc/create_table_resto/create_table_resto_bloc.dart';
 
 class TableRestoForm extends StatefulWidget {
-  const TableRestoForm({super.key});
+  final TableRestoModel? tableRestoModel;
+  TableRestoForm({super.key, this.tableRestoModel});
 
   @override
   State<TableRestoForm> createState() => _TableRestoFormState();
@@ -16,9 +18,19 @@ class _TableRestoFormState extends State<TableRestoForm> {
   final tecCapacity = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  final listTableStatus = ['Kosong', 'Terisi'];
+  final listStatus = ['Aktif', 'Tidak Aktif'];
+  String tableStatus = 'Kosong';
+  String status = 'Aktif';
+
   @override
   void initState() {
     super.initState();
+    if (widget.tableRestoModel != null) {
+      tecCode.text = widget.tableRestoModel!.code!;
+      tecName.text = widget.tableRestoModel!.name!;
+      tecCapacity.text = widget.tableRestoModel!.capacity!.toString();
+    }
   }
 
   @override
@@ -39,8 +51,7 @@ class _TableRestoFormState extends State<TableRestoForm> {
           if (state is CreateTableRestoSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                  state.tableRestoNewResponse.message),
+                content: Text(state.tableRestoNewResponse.message),
                 backgroundColor: Colors.green,
               ),
             );
@@ -114,6 +125,50 @@ class _TableRestoFormState extends State<TableRestoForm> {
                           ),
                         ),
                       ),
+                      DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Status Meja',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        initialValue: widget.tableRestoModel!.tableStatus!,
+                        items: listTableStatus
+                            .map(
+                              (String element) => DropdownMenuItem<String>(
+                                value: element,
+                                child: Text(element),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (String? newValue) {
+                          if (newValue != 'Kosong') {
+                            tableStatus = 'Terisi';
+                          }
+                        },
+                      ),
+                      DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: 'Status Table',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(15)),
+                          ),
+                        ),
+                        initialValue: widget.tableRestoModel!.status,
+                        items: listTableStatus
+                            .map(
+                              (String element) => DropdownMenuItem<String>(
+                                value: element,
+                                child: Text(element),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (String? newValue) {
+                          if (newValue != 'Tidak Aktif') {
+                            status = 'Aktif';
+                          }
+                        },
+                      ),
                       Container(
                         width: double.infinity,
                         height: 60,
@@ -127,7 +182,7 @@ class _TableRestoFormState extends State<TableRestoForm> {
                             ).colorScheme.secondary,
                           ),
                           onPressed: () {
-                            if (formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate() && widget.tableRestoModel == null) {
                               final tableRestoParam = TableRestoParam(
                                 tecCode.text,
                                 tecName.text,
@@ -137,6 +192,22 @@ class _TableRestoFormState extends State<TableRestoForm> {
                               );
                               context.read<CreateTableRestoBloc>().add(
                                 TableRestoCreated(
+                                  tableRestoParam: tableRestoParam,
+                                ),
+                              );
+                            } else if (widget.tableRestoModel != null &&
+                                formKey.currentState!.validate()) {
+                              final tableRestoParam = TableRestoParam(
+                                tecCode.text,
+                                tecName.text,
+                                int.parse(tecCapacity.text.toString()),
+                                tableStatus,
+                                status,
+                              );
+
+                              context.read<CreateTableRestoBloc>().add(
+                                TableRestoUpdated(
+                                  id: widget.tableRestoModel!.id!,
                                   tableRestoParam: tableRestoParam,
                                 ),
                               );

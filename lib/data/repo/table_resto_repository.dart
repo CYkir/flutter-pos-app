@@ -38,4 +38,22 @@ class TableRestoRepository extends ApiClient {
       throw Exception(e);
     }
   }
+
+
+    Future<TableRestoNewResponse> updateTableResto(int id,
+    TableRestoParam tableRestoParam,
+  ) async {
+    try {
+      var response = await dio.post(
+        'table-resto/${id}',
+        data: tableRestoParam.toJsonUpdate(),
+      );
+      debugPrint('PUT Table Resto : ${response.data}');
+      return TableRestoNewResponse.fromJson(response.data);
+    } on DioException catch (e) {
+      throw Exception(e);
+    }
+  }
 }
+
+
